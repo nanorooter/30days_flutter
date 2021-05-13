@@ -8,6 +8,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String name = "";
+  bool changedButton = false;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -20,9 +22,12 @@ class _LoginPageState extends State<LoginPage> {
             height: 20,
           ),
           Text(
-            'Welcome to Login Tutorial',
+            'Welcome to Login \n $name',
+            textAlign: TextAlign.center,
             style: GoogleFonts.capriola(
-                fontSize: 20, color: Colors.deepPurple[200]),
+              fontSize: 20,
+              color: Colors.deepPurple[200],
+            ),
           ),
           SizedBox(
             height: 20,
@@ -34,6 +39,10 @@ class _LoginPageState extends State<LoginPage> {
                 TextFormField(
                   decoration: InputDecoration(
                       hintText: 'Enter Username', labelText: 'Username'),
+                  onChanged: (value) {
+                    name = value;
+                    setState(() {});
+                  },
                 ),
                 TextFormField(
                   obscureText: true,
@@ -43,13 +52,43 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
-          ElevatedButton(
-            child: Icon(
-              Icons.assignment_turned_in_rounded,
-            ),
-            onPressed: () {
+          // ElevatedButton(
+          //   child: Icon(
+          //     Icons.assignment_turned_in_rounded,
+          //   ),
+          //   onPressed: () {
+          //     Navigator.pushNamed(context, MyRoutes.homeRoute);
+          //   },
+          // )
+          InkWell(
+            onTap: () async {
+              setState(() {
+                changedButton = true;
+              });
+
+              await Future.delayed(Duration(seconds: 1));
               Navigator.pushNamed(context, MyRoutes.homeRoute);
             },
+            child: AnimatedContainer(
+              duration: Duration(seconds: 1),
+              alignment: Alignment.center,
+              height: 50,
+              width: changedButton ? 50 : 150,
+              child: changedButton
+                  ? Icon(
+                      Icons.done,
+                      color: Colors.white,
+                    )
+                  : Text(
+                      'Login',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(changedButton ? 50 : 8),
+                color: Colors.deepPurple,
+                // shape: changedButton ? BoxShape.circle : BoxShape.rectangle,
+              ),
+            ),
           )
         ],
       )),
