@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_recipe/utils/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -42,7 +48,7 @@ class LoginPage extends StatelessWidget {
               Icons.assignment_turned_in_rounded,
             ),
             onPressed: () {
-              print('Hi nandadeep');
+              Navigator.pushNamed(context, MyRoutes.homeRoute);
             },
           )
         ],
